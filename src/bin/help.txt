@@ -1,5 +1,3 @@
-Codemods to upgrade react-intl from v2 to v4.
-
 Usage
   $ react-intl-v2-to-v4 <path> [transform] <...options>
     path             Files or directory to transform. Can be a glob like src/**.test.js
