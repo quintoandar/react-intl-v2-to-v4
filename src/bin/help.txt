@@ -14,3 +14,4 @@ Options
   --print            Print transformed files to your terminal
   -v, --verbose=0|1|2 Show more information about the transform process
                       (default: 0)
+  --version          Print version and exit
