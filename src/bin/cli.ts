@@ -126,7 +126,8 @@ function run() {
       }
 
       if (!cli.flags.dry) {
-        checkGitStatus(cli.flags.force, filesBeforeExpansion);
+        // Can't check against filesBeforeExpansion when it's a glob
+        checkGitStatus(cli.flags.force, process.cwd());
       }
 
       return runTransform({
