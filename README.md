@@ -11,12 +11,15 @@ Never heard of codemods? Here is a quick summary from [facebook/codemod](https:/
 
 ## How to use
 
-To start the wizard:
-
 ```bash
 # installing globally
 npm install -g @quintoandar/react-intl-v2-to-v4
+
+# starting the interactive prompt
 react-intl-v2-to-v4
+
+# running a specific transform with glob and custom options
+react-intl-v2-to-v4 'src/**/file.js' migrateIntlShape --dry
 
 # or using npx
 npx @quintoandar/react-intl-v2-to-v4
