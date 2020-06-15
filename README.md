@@ -29,7 +29,7 @@ Use `react-intl-v2-to-v4 --help` to see the CLI commands or refer to the [help f
 
 ## Features
 
-### Migrate `intlShape` prop type
+### Migrate `intlShape` prop type (`migrateIntlShape`)
 
 Remove the deprecated `intlShape` import and replace its occurrences with `PropType.object`. 
 It automatically adds `import PropTypes from 'prop-types'` if necessary.
@@ -61,7 +61,7 @@ import { bool, string } from 'prop-types';
 
 Linting with a [`no-duplicate-imports` rule](https://eslint.org/docs/rules/no-duplicate-imports) will catch these cases.
 
-## Migrate `injectIntl` `withRef` option
+## Migrate `injectIntl` `withRef` option (`migrateInjectIntlWithRef`)
 
 Replace the deprecated `withRef` option with `forwarRef`.
 
@@ -76,7 +76,7 @@ import { injectIntl } from 'react-intl';
 
 **Note**: any change related to migrating to the React > 16.3 `ref` API must be done manually.
 
-### Migrate `getChildContext`
+### Migrate `getChildContext` (`migrateGetChildContext`)
 
 This transform searches speciffically for this pattern:
 
@@ -101,7 +101,7 @@ import React from 'react';
 + }, intlCache);
 ```
 
-### Migrate `injectIntl` HOC to `useIntl` hook (partial)
+### Migrate `injectIntl` HOC to `useIntl` hook (partial) (`migrateInjectIntlToUseIntlHook`)
 
 Replace the `injectIntl` import with `useIntl` and remove `injectIntl` calls by returning `WrappedComponent` directly.
 
