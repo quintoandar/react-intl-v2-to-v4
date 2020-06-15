@@ -1,0 +1,61 @@
+{
+  "name": "@quintoandar/react-intl-v2-to-v4",
+  "version": "0.0.1",
+  "description": "Codemods to upgrade react-intl from v2 to v4",
+  "author": "QuintoAndar",
+  "license": "ISC",
+  "bin": "dist/bin/index.js",
+  "scripts": {
+    "prestart": "npm run build",
+    "start": "node dist/bin/index.js",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "postbuild": "node post-build.js",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "lint": "eslint .",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "homepage": "https://github.com/quintoandar/react-intl-v2-to-v4#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quintoandar/react-intl-v2-to-v4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quintoandar/react-intl-v2-to-v4/issues"
+  },
+  "keywords": [
+    "codemods",
+    "react-intl",
+    "jscodeshift"
+  ],
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
+    "@types/inquirer": "^6.5.0",
+    "@types/jest": "^26.0.0",
+    "@types/jscodeshift": "^0.7.1",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
+    "@typescript-eslint/parser": "^3.2.0",
+    "babel-jest": "^26.0.1",
+    "eslint": "^7.2.0",
+    "fs-extra": "^9.0.1",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "execa": "^4.0.2",
+    "globby": "^11.0.1",
+    "inquirer": "^7.1.0",
+    "is-git-clean": "^1.1.0",
+    "jscodeshift": "^0.10.0",
+    "meow": "^7.0.1",
+    "prop-types": "^15.7.2"
+  }
+}

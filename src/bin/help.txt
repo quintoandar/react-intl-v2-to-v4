@@ -1,0 +1,18 @@
+Codemods to upgrade react-intl from v2 to v4.
+
+Usage
+  $ react-intl-v2-to-v4 <path> [transform] <...options>
+    path             Files or directory to transform. Can be a glob like src/**.test.js
+    transform        One specific transform to be run. If omitted, a list with all the transformations will be presented
+Options
+  --dry              Dry run (no changes are made to files)
+  --extensions=EXT   Transform files with these file extensions (comma separated list)
+                     (default: js,jsx)
+  --force            Bypass Git safety checks and forcibly run codemods
+  --ignore-pattern=GLOB ... Ignore files that match a provided glob expression
+                            (default: **/node_modules/**)
+  --parser=babel|babylon|flow|ts|tsx  The parser to use for parsing the source files
+                                      (default: babel)
+  --print            Print transformed files to your terminal
+  -v, --verbose=0|1|2 Show more information about the transform process
+                      (default: 0)
