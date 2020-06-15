@@ -5,12 +5,12 @@ const TRANSFORM_INQUIRER_CHOICES = [
     value: 'migrateIntlShape',
   },
   {
-    name: 'Migrate intlProvider.getChildContext()',
-    value: 'migrateGetChildContext',
-  },
-  {
     name: 'Migrate injectIntl withRef option',
     value: 'migrateInjectIntlWithRef',
+  },
+  {
+    name: 'Migrate getChildContext',
+    value: 'migrateGetChildContext',
   },
   {
     name: 'Migrate injectIntl HOC to useIntl hook',
