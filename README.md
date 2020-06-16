@@ -161,28 +161,6 @@ For more information, see the official guides:
 - [Official Upgrade Guide (v3 -> v4)](https://formatjs.io/docs/react-intl/upgrade-guide-4x)
 - [Official Upgrade Guide (v2 -> v3)](https://formatjs.io/docs/react-intl/upgrade-guide-3x)
 
-## Support v2 to v4
-
-If you are a library author, you might want to support multiple `react-intl` major versions for some period of time.
-In order to do that, you must enforce the following restrictions:
-
-- Drop support for React < 16.3, as newer versions require the Context API
-- Do not rely on the encapsulating `<span>` when styling or manupulating the DOM, as `React.Fragment` is the new default
-- Do not use `FormattedRelative`/`formatRelative` or `FormattedRelativeTime`/`formatRelativeTime`
-- Do not use `FormattedHTMLMessage`/`formatHTMLMessage`
-- Do not use `FormattedMessage`/`formatMessage` with rich text formatting
-- Do not use `injectIntl` with option `withRef: true` or `forwardRef: true`
-- Do not use escaping in messages
-- Remove dashes from placeholver variables or replace them with underscore (`_`)
-
-If your code complies with them, you can update the `peerDependencies` of your library:
-
-```
-"peerDependencies": {
-  "react-intl": "^2.1.5 || ^4.6.9",
-  // ...
-```
-
 ## Contributing
 
 The implementation of this tool is based on other open-source libraries, so check out their documentation:
