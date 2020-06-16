@@ -17,7 +17,7 @@ const transform: Transform = (file, api) => {
     });
 
   if (intlProviderImports.size() === 0) {
-    return root.toSource();
+    return undefined;
   }
 
   // Replace IntlProvider import with createIntl and createIntlCache
