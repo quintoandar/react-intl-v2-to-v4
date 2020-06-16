@@ -17,7 +17,7 @@ const transform: Transform = (file, api) => {
     });
 
   if (injectIntlImports.size() === 0) {
-    return root.toSource();
+    return undefined;
   }
 
   // Replace withRef property with forwardRef
