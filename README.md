@@ -190,3 +190,13 @@ The implementation of this tool is based on other open-source libraries, so chec
 - Transforms: [jscodeshift](https://github.com/facebook/jscodeshift)
 - CLI: [meow](https://github.com/sindresorhus/meow)
 - Prompt: [inquirer](https://github.com/SBoudrias/Inquirer.js)
+
+### Testing
+
+Unit tests are written with [Jest](https://github.com/facebook/jest) and [jscodeshift testing utilities](https://github.com/facebook/jscodeshift#unit-testing).
+
+**Important**: if you are writting a test case where the file should not be changed, the expected output fixture must be empty!
+
+### Releasing
+
+Creating a [release](https://github.com/quintoandar/react-intl-v2-to-v4/releases) on GitHub automatically publishes a new version on npm.
