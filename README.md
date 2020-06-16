@@ -51,7 +51,7 @@ Component.propTypes = {
 
 **Note**: if you are using named imports from `prop-types`, you will get a duplicate import
 
-```
+```diff
 import React from 'react';
 import { bool, string } from 'prop-types';
 + import PropTypes from 'prop-types';
