@@ -101,7 +101,7 @@ import React from 'react';
 + }, intlCache);
 ```
 
-### Migrate `injectIntl` HOC to `useIntl` hook (partial) (`migrateInjectIntlToUseIntlHook`)
+### Migrate `injectIntl` HOC to `useIntl` hook (partial) (`migrateInjectIntlToUseIntl`)
 
 Replace the `injectIntl` import with `useIntl` and remove `injectIntl` calls by returning `WrappedComponent` directly.
 
@@ -130,6 +130,15 @@ const WrappedComponent = () => {
 };
 
 export default WrappedComponent;
+```
+
+If you are composing multiple high-order components using something like `recompose`, you will have to remove `injectIntl` manually:
+
+```diff
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+-  injectIntl,
+)(Component);
 ```
 
 ## Unsupported changes
