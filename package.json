@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Codemods to upgrade react-intl from v2 to v4",
   "author": "QuintoAndar",
-  "license": "ISC",
+  "license": "MIT",
   "bin": "dist/bin/index.js",
   "scripts": {
     "prestart": "npm run build",
