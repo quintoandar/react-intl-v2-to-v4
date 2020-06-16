@@ -3,15 +3,23 @@ Usage
     path             Files or directory to transform. Can be a glob like src/**.test.js
     transform        One specific transform to be run. If omitted, a list with all the transformations will be presented
 Options
-  --dry              Dry run (no changes are made to files)
+  -c, --cpus=N       Start at most N child processes to process source files
+                     (default: max(all - 1, 1))
+  -d, --(no-)dry     Dry run (no changes are made to files)
   --extensions=EXT   Transform files with these file extensions (comma separated list)
                      (default: js,jsx)
   --force            Bypass Git safety checks and forcibly run codemods
+  --ignore-config=FILE ...  Ignore files if they match patterns sourced from a configuration file (e.g. a .gitignore)
   --ignore-pattern=GLOB ... Ignore files that match a provided glob expression
                             (default: **/node_modules/**)
   --parser=babel|babylon|flow|ts|tsx  The parser to use for parsing the source files
                                       (default: babel)
-  --print            Print transformed files to your terminal
+  --parser-config=FILE      Path to a JSON file containing a custom parser configuration for flow or babylon
+  -p, --(no-)print   Print transformed files to your terminal
+  --(no-)run-in-band Run serially in the current process
+                     (default: false)
+  -s, --(no-)silent  Do not write to stdout or stderr
+                     (default: false)
   -v, --verbose=0|1|2 Show more information about the transform process
-                      (default: 0)
+                      (default: 2)
   --version          Print version and exit

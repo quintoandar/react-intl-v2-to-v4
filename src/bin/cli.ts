@@ -13,57 +13,17 @@ const jscodeshiftExecutable = require.resolve('.bin/jscodeshift');
 
 const logger = console;
 
-// TODO: fix flags type
-function runTransform(opts: {
-  files: string[];
-  flags: any;
-  transform: string;
-}) {
-  const { files, flags, transform } = opts;
-
-  const transformPath = path.join(transformsDirectory, `${transform}.ts`);
-
-  let args = [];
-
-  if (flags.dry) {
-    args.push('--dry');
-  }
-
-  if (flags.print) {
-    args.push('--print');
-  }
-
-  args.push(`--parser=${flags.parser}`);
-  args.push(`--extensions=${flags.extensions}`);
-  args.push(`--ignore-pattern=${flags.ignorePattern}`);
-  args.push(`--verbose=${flags.verbose}`);
-
-  args = args.concat(['--transform', transformPath]);
-
-  args = args.concat(files);
-
-  logger.log(`Executing command: jscodeshift ${args.join(' ')}`);
-
-  execa.sync(jscodeshiftExecutable, args, {
-    stdio: 'inherit',
-  });
-}
-
-function expandFilePathsIfNeeded(filesBeforeExpansion: string[]) {
-  const shouldExpandFiles = filesBeforeExpansion.some((file) =>
-    file.includes('*'),
-  );
-  return shouldExpandFiles
-    ? globby.sync(filesBeforeExpansion)
-    : filesBeforeExpansion;
-}
-
 function run() {
   const cli = meow(helpText, {
     flags: {
+      cpus: {
+        type: 'number',
+        alias: 'c',
+      },
       dry: {
         type: 'boolean',
         default: false,
+        alias: 'd',
       },
       extensions: {
         type: 'string',
@@ -73,6 +33,9 @@ function run() {
         type: 'boolean',
         default: false,
       },
+      'ignore-config': {
+        type: 'string',
+      },
       'ignore-pattern': {
         type: 'string',
         default: '**/node_modules/**',
@@ -81,9 +44,22 @@ function run() {
         type: 'string',
         default: 'babel',
       },
+      'parser-config': {
+        type: 'string',
+      },
       print: {
         type: 'boolean',
         default: false,
+        alias: 'p',
+      },
+      'run-in-band': {
+        type: 'boolean',
+        default: false,
+      },
+      silent: {
+        type: 'boolean',
+        default: false,
+        alias: 's',
       },
       verbose: {
         type: 'number',
@@ -136,6 +112,82 @@ function run() {
         transform: selectedTransform,
       });
     });
+}
+
+function expandFilePathsIfNeeded(filesBeforeExpansion: string[]) {
+  const shouldExpandFiles = filesBeforeExpansion.some((file) =>
+    file.includes('*'),
+  );
+  return shouldExpandFiles
+    ? globby.sync(filesBeforeExpansion)
+    : filesBeforeExpansion;
+}
+
+function runTransform(opts: {
+  files: string[];
+  flags: any;
+  transform: string;
+}) {
+  const args = parseArgs(opts);
+
+  if (!opts.flags.silent) {
+    logger.log(`Executing command: jscodeshift ${args.join(' ')}`);
+  }
+
+  execa.sync(jscodeshiftExecutable, args, {
+    stdin: 'inherit',
+    stdout: opts.flags.silent ? 'ignore' : 'inherit',
+    stderr: 'inherit',
+  });
+}
+
+// TODO: fix flags type
+function parseArgs(opts: { files: string[]; flags: any; transform: string }) {
+  const { files, flags, transform } = opts;
+  let args = [];
+
+  if (flags.cpus !== undefined) {
+    args.push(`--cpus=${flags.cpus}`);
+  }
+
+  if (flags.dry) {
+    args.push('--dry');
+  }
+
+  args.push(`--extensions=${flags.extensions}`);
+
+  if (flags.ignoreConfig !== undefined) {
+    args.push(`--ignore-config=${flags.ignoreConfig}`);
+  }
+
+  args.push(`--ignore-pattern=${flags.ignorePattern}`);
+
+  args.push(`--parser=${flags.parser}`);
+
+  if (flags.parserConfig !== undefined) {
+    args.push(`--parser-config=${flags.parserConfig}`);
+  }
+
+  if (flags.print) {
+    args.push('--print');
+  }
+
+  if (flags.runInBand) {
+    args.push('--run-in-band');
+  }
+
+  if (flags.silent) {
+    args.push('--silent');
+  }
+
+  args.push(`--verbose=${flags.verbose}`);
+
+  const transformPath = path.join(transformsDirectory, `${transform}.ts`);
+  args = args.concat(['--transform', transformPath]);
+
+  args = args.concat(files);
+
+  return args;
 }
 
 export {
