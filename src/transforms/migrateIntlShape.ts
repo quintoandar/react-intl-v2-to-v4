@@ -16,7 +16,7 @@ const transform: Transform = (file, api) => {
   });
 
   if (intlShapeImports.size() === 0) {
-    return root.toSource();
+    return undefined;
   }
 
   // Ensure a PropTypes default import exists
