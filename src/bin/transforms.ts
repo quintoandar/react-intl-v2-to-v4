@@ -13,8 +13,8 @@ const TRANSFORM_INQUIRER_CHOICES = [
     value: 'migrateGetChildContext',
   },
   {
-    name: 'Migrate injectIntl HOC to useIntl hook',
-    value: 'migrateInjectIntlToUseIntlHook',
+    name: 'Migrate injectIntl HOC to useIntl hook (partial)',
+    value: 'migrateInjectIntlToUseIntl',
   },
 ];
 
