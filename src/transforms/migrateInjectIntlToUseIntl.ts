@@ -1,8 +1,9 @@
 import { Transform } from 'jscodeshift';
 
-const transform: Transform = (file, api) => {
+const transform: Transform = (file, api, options) => {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const printOptions = options.printOptions ?? {};
 
   const injectIntlImports = root
     .find(j.ImportDeclaration, {
@@ -35,7 +36,7 @@ const transform: Transform = (file, api) => {
       injectIntlCall.replace(WrappedComponent);
     });
 
-  return root.toSource();
+  return root.toSource(printOptions);
 };
 
 export default transform;
