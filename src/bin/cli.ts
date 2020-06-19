@@ -16,10 +16,6 @@ const logger = console;
 function run() {
   const cli = meow(helpText, {
     flags: {
-      cpus: {
-        type: 'number',
-        alias: 'c',
-      },
       dry: {
         type: 'boolean',
         default: false,
@@ -40,21 +36,13 @@ function run() {
         type: 'string',
         default: '**/node_modules/**',
       },
-      parser: {
-        type: 'string',
-        default: 'babel',
-      },
-      'parser-config': {
+      jscodeshift: {
         type: 'string',
       },
       print: {
         type: 'boolean',
         default: false,
         alias: 'p',
-      },
-      'run-in-band': {
-        type: 'boolean',
-        default: false,
       },
       silent: {
         type: 'boolean',
@@ -146,10 +134,6 @@ function parseArgs(opts: { files: string[]; flags: any; transform: string }) {
   const { files, flags, transform } = opts;
   let args = [];
 
-  if (flags.cpus !== undefined) {
-    args.push(`--cpus=${flags.cpus}`);
-  }
-
   if (flags.dry) {
     args.push('--dry');
   }
@@ -162,18 +146,8 @@ function parseArgs(opts: { files: string[]; flags: any; transform: string }) {
 
   args.push(`--ignore-pattern=${flags.ignorePattern}`);
 
-  args.push(`--parser=${flags.parser}`);
-
-  if (flags.parserConfig !== undefined) {
-    args.push(`--parser-config=${flags.parserConfig}`);
-  }
-
   if (flags.print) {
     args.push('--print');
-  }
-
-  if (flags.runInBand) {
-    args.push('--run-in-band');
   }
 
   if (flags.silent) {
@@ -184,6 +158,10 @@ function parseArgs(opts: { files: string[]; flags: any; transform: string }) {
 
   const transformPath = path.join(transformsDirectory, `${transform}.ts`);
   args = args.concat(['--transform', transformPath]);
+
+  if (flags.jscodeshift !== undefined) {
+    args = args.concat(flags.jscodeshift);
+  }
 
   args = args.concat(files);
 

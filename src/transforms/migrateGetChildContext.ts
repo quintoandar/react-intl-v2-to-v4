@@ -1,8 +1,12 @@
 import { Transform } from 'jscodeshift';
 
-const transform: Transform = (file, api) => {
+const transform: Transform = (file, api, options) => {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const printOptions = options.printOptions ?? {
+    quote: 'single',
+    trailingComma: true,
+  };
 
   const intlProviderImports = root
     .find(j.ImportDeclaration, {
@@ -59,7 +63,7 @@ const transform: Transform = (file, api) => {
     .closest(j.VariableDeclaration)
     .insertAfter(intl);
 
-  return root.toSource({ quote: 'single', trailingComma: true });
+  return root.toSource(printOptions);
 };
 
 export default transform;

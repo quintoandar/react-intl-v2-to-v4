@@ -1,8 +1,11 @@
 import { Transform } from 'jscodeshift';
 
-const transform: Transform = (file, api) => {
+const transform: Transform = (file, api, options) => {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const printOptions = options.printOptions ?? {
+    quote: 'single',
+  };
 
   const reactIntlImports = root.find(j.ImportDeclaration, {
     source: {
@@ -66,7 +69,7 @@ const transform: Transform = (file, api) => {
       j.memberExpression(j.identifier('PropTypes'), j.identifier('object')),
     );
 
-  return root.toSource({ quote: 'single' });
+  return root.toSource(printOptions);
 };
 
 export default transform;

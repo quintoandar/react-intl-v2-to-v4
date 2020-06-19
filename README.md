@@ -19,7 +19,16 @@ npm install -g @quintoandar/react-intl-v2-to-v4
 react-intl-v2-to-v4
 
 # running a specific transform with glob and custom options
-react-intl-v2-to-v4 'src/**/file.js' migrateIntlShape --dry
+react-intl-v2-to-v4 'src/**/*.test.js' migrateGetChildContext --dry
+
+# passing jscodeshift options
+# learn more at https://github.com/facebook/jscodeshift#usage-cli
+react-intl-v2-to-v4 . migrateIntlShape --jscodeshift="--run-in-band"
+
+# passing recast options
+# useful for formatting configuration (tab size, quotes, trailing comma etc.)
+# learn more at https://github.com/benjamn/recast/blob/822b013218a583c555bcf754beddfc52371b4a58/lib/options.ts
+react-intl-v2-to-v4 . migrateIntlShape --jscodeshift="--printOptions='{\"quote\":\"double\"}'"
 
 # or using npx
 npx @quintoandar/react-intl-v2-to-v4
@@ -61,7 +70,7 @@ import { bool, string } from 'prop-types';
 
 Linting with a [`no-duplicate-imports` rule](https://eslint.org/docs/rules/no-duplicate-imports) will catch these cases.
 
-## Migrate `injectIntl` `withRef` option (`migrateInjectIntlWithRef`)
+### Migrate `injectIntl` `withRef` option (`migrateInjectIntlWithRef`)
 
 Replace the deprecated `withRef` option with `forwarRef`.
 
